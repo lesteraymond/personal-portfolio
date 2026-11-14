@@ -49,19 +49,17 @@
 		});
 	}
 
-	if ("IntersectionObserver" in window) {
-		var io = new IntersectionObserver(
-			function (entries) {
-				entries.forEach(function (entry) {
-					if (entry.isIntersecting && !locked) setCurrent(entry.target.id);
-				});
-			},
-			{ rootMargin: "-40% 0px -55% 0px" },
-		);
-		sections.forEach(function (s) {
-			io.observe(s);
-		});
-	}
+	var io = new IntersectionObserver(
+		function (entries) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting && !locked) setCurrent(entry.target.id);
+			});
+		},
+		{ rootMargin: "-40% 0px -55% 0px" },
+	);
+	sections.forEach(function (s) {
+		io.observe(s);
+	});
 	setCurrent("home");
 
 	document.querySelectorAll(".copy-btn").forEach(function (b) {
@@ -117,12 +115,12 @@
 	}
 	var themeMeta = document.querySelector('meta[name="theme-color"]');
 	var themeTimer;
+	var reduceMotion = window.matchMedia(
+		"(prefers-reduced-motion: reduce)",
+	).matches;
 	function toggleTheme() {
 		var root = document.documentElement;
-		var calm =
-			window.matchMedia &&
-			window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-		if (!calm) {
+		if (!reduceMotion) {
 			root.classList.add("theme-fade");
 			clearTimeout(themeTimer);
 			themeTimer = setTimeout(function () {
@@ -133,9 +131,6 @@
 		if (themeMeta)
 			themeMeta.setAttribute("content", on ? "#f2b3ca" : "#faf8f5");
 	}
-	var reduceMotion =
-		window.matchMedia &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	function rain() {
 		if (reduceMotion) return;
 		var colors = ["#e8556d", "#f27a93", "#f4b63f", "#ff9eb5"];
