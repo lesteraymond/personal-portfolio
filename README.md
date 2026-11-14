@@ -18,3 +18,5 @@ Open `index.html` in a browser, or use any static file server, like the Live Ser
 ## Deploying
 
 I push to GitHub and import the repo in Vercel.
+
+<!-- what can i doooo ... but think of youuuuuu? -->
